@@ -120,7 +120,7 @@
 
 ## 다이아그램
 
-<img alt='twiiter 설계' src='https://velog.velcdn.com/images/dlrbwjd97/post/dd4c6bc0-c74b-4633-aa4f-5db7fa9e0257/image.png' width=450px />
+<img alt='twitter 설계' src='https://velog.velcdn.com/images/dlrbwjd97/post/dd4c6bc0-c74b-4633-aa4f-5db7fa9e0257/image.png' width=450px />
 
 ## 라우팅
 
