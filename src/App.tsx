@@ -11,11 +11,10 @@ function App() {
   );
 
   console.log(auth, isAuthenticated);
-  
 
   return (
     <Layout>
-      <Router />
+      <Router isAuthenticated={isAuthenticated} />
     </Layout>
   );
 }
