@@ -4,12 +4,12 @@ import Router from "components/Router";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { app } from "firebaseApp";
 import { useState, useEffect } from "react";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const auth = getAuth(app);
-  const [init, setInit] = useState<boolean>(false)
+  const [init, setInit] = useState<boolean>(false);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
     !!auth?.currentUser
   );
@@ -17,17 +17,23 @@ function App() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setIsAuthenticated(true)
+        setIsAuthenticated(true);
       } else {
-        setIsAuthenticated(false)
+        setIsAuthenticated(false);
       }
-      setInit(true)
-    })
-  }, [auth])
+      setInit(true);
+    });
+  }, [auth]);
 
   return (
     <Layout>
-      <ToastContainer />
+      <ToastContainer
+        position="top-left"
+        theme='sk'
+        autoClose={1000}
+        hideProgressBar
+        newestOnTop
+      />
       {init ? <Router isAuthenticated={isAuthenticated} /> : <Loader />}
     </Layout>
   );
