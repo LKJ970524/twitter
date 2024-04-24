@@ -1,4 +1,10 @@
-import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  GithubAuthProvider,
+} from "firebase/auth";
 import { app } from "firebaseApp";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,7 +14,7 @@ export default function LoginForm() {
   const [error, setError] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
@@ -16,15 +22,15 @@ export default function LoginForm() {
       const auth = getAuth(app);
       await signInWithEmailAndPassword(auth, email, password);
       navigate("/");
-      toast.success("성공적으로 로그인이 되었습니다.");
+      toast.success("Email로 로그인이 되었습니다.");
     } catch (error: any) {
       toast.error(error?.code);
     }
   };
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
-      target: {name, value},
-    } = e
+      target: { name, value },
+    } = e;
 
     if (name === "email") {
       setEmail(value);
@@ -47,14 +53,55 @@ export default function LoginForm() {
         setError("");
       }
     }
-  }
+  };
+
+  const onClickSocialLogin = async (e: any) => {
+    const {
+      target: { name },
+    } = e;
+
+    let provider;
+    let loginMethod = '';
+    const auth = getAuth(app);
+
+    if (name === "google") {
+      provider = new GoogleAuthProvider();
+      loginMethod = 'Google'
+    }
+
+    if (name === "github") {
+      provider = new GithubAuthProvider();
+      loginMethod = 'GitHub'
+    }
+
+    await signInWithPopup(
+      auth,
+      provider as GithubAuthProvider | GoogleAuthProvider
+    )
+      .then((result) => {
+        console.log(result);
+        toast.success(`${loginMethod}로 로그인 되었습니다.`);
+      })
+      .catch((error) => {
+        console.log(error);
+        const errorMessage = error?.message;
+        toast?.error(errorMessage);
+      });
+  };
 
   return (
     <form className="form form-lg" onSubmit={onSubmit}>
       <div className="form__title">로그인</div>
       <div className="form__block">
         <label htmlFor="email">이메일</label>
-        <input type="text" name="email" id="email" value={email} required onChange={onChange} />
+        <input
+          type="text"
+          name="email"
+          id="email"
+          value={email}
+          required
+          onChange={onChange}
+        />
       </div>
       <div className="form__block">
         <label htmlFor="password">비밀번호</label>
@@ -79,8 +126,32 @@ export default function LoginForm() {
         </Link>
       </div>
       <div className="form__block-lg">
-        <button type="submit" className="form__btn-submit" disabled={error?.length > 0}>
+        <button
+          type="submit"
+          className="form__btn-submit"
+          disabled={error?.length > 0}
+        >
           로그인
+        </button>
+      </div>
+      <div className="form__block-lg">
+        <button
+          type="button"
+          name="google"
+          className="form__btn-google"
+          onClick={onClickSocialLogin}
+        >
+          Google로 로그인
+        </button>
+      </div>
+      <div className="form__block-lg">
+        <button
+          type="button"
+          name="github"
+          className="form__btn-github"
+          onClick={onClickSocialLogin}
+        >
+          GitHub으로 로그인
         </button>
       </div>
     </form>
