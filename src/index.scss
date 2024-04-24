@@ -316,7 +316,7 @@ body {
     color: red;
   }
 
-  &__btn--google {
+  &__btn-google {
     @extend .form__btn-submit;
     background-color: $white;
     color: $activeBorder;
@@ -328,7 +328,7 @@ body {
     }
   }
 
-  &__btn--github {
+  &__btn-github {
     @extend .form__btn-submit;
     background-color: black;
     color: white;
