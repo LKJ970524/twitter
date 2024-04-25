@@ -181,6 +181,30 @@ body {
 
 // 포스트 레이아웃
 .post {
+  &__header {
+    button {
+      border: none;
+      padding: 16px;
+    }
+
+    &-btn {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+  }
+
+  &__no-posts {
+    padding: 16px;
+
+    .post__text {
+      font-size: 14px;
+      border: 1px solid $gray;
+      padding: 16px;
+      border-radius: 4px;
+      text-align: center;
+    }
+  }
   padding-bottom: 40px;
 
   &__flex {
