@@ -1,11 +1,12 @@
 $background: #1e293b;
 $activeBg: #3c495f5f;
-$white: #fff;
+$white: #ffffff;
+$backgroundLight: #263340;
 $border: #708090;
 $primaryColor: #60a5fa;
 $activeBorder: #3b82f6;
 $grayText: #9ca3af;
-$danger: #dc2646;
+$danger: #dc2626;
 $dangerDark: #dc26268e;
 $gray: #6b7280;
 $grayDark: #4c515b;
@@ -74,7 +75,7 @@ body {
 
   &__grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     background-color: transparent;
 
     button {
@@ -94,6 +95,27 @@ body {
 
 // home 레이아웃
 .home {
+  &__search-div {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__search {
+    @extend .post-form__input;
+    background-color: $backgroundLight;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    padding: 12px;
+    width: 90% !important;
+    font-size: 15px;
+    font-weight: 600;
+
+    &:focus {
+      border: 1px solid $primaryColor;
+      background-color: $activeBg;
+    }
+  }
+
   &__top {
     @extend .transparent;
     @extend .sticky;
@@ -101,7 +123,7 @@ body {
 
   &__title {
     background-color: transparent;
-    width: 100%;
+    width: 90%;
     padding: 16px;
     font-weight: 700;
     font-size: 20px;
@@ -171,7 +193,7 @@ body {
       }
     }
   }
-  
+
   &__textarea {
     font-family: $font;
     min-height: 120px;
