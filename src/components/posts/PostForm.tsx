@@ -4,7 +4,7 @@ import { db, storage } from "firebaseApp";
 import { useContext, useState } from "react";
 import { FiImage } from "react-icons/fi";
 import { toast } from "react-toastify";
-import { getDownloadURL, getStorage, ref, uploadString } from "firebase/storage";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { v4 as uuidv4 } from 'uuid'
 
 export default function PostForm() {
@@ -37,7 +37,6 @@ export default function PostForm() {
     e.preventDefault();
 
     try {
-
       // 이미지 먼저 업로드
       let imageUrl = ''
       if(imageFile) {
@@ -153,7 +152,7 @@ export default function PostForm() {
           />
           { imageFile && (
             <div className="post-form__attachment">
-              <img src={imageFile} alt="attachment" width={100} height={100} />
+              <img src={imageFile} alt="attachment" width={150} height={150} />
               <button className="post-form__clear-btn" type="button" onClick={handleDeleteImage}>Clear</button>
             </div>
           )}
