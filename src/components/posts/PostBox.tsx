@@ -42,6 +42,11 @@ export default function PostBox({ post }: PostBoxProps) {
             <div className="post__createdAt">{post?.createdAt}</div>
           </div>
           <div className="post__box-content">{post?.content}</div>
+          {post?.imageUrl && (
+            <div className="post__image-div">
+              <img src={post?.imageUrl} alt="post_img" className="post__image" width={150} height={150} />
+            </div>
+          )}
           <div className="post-form__hashtags-outputs">
             {post?.hashTags?.map((tag, index) => (
               <span className="post-form__hashtags-tag" key={index}>

@@ -156,6 +156,46 @@ body {
 }
 
 .post-form {
+  &__profile {
+    padding: 16px;
+
+    .post-form__input {
+      border-bottom: 1px solid $gray;
+      padding: 8px 2px;
+      font-size: 16px;
+      width: 100%;
+      margin-bottom: 20px;
+
+      &:active,
+      &:focus {
+        border-bottom: 1px solid white;
+      }
+    }
+  }
+
+  &__image-area {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__attachment {
+    display: flex;
+    align-items: end;
+    gap: 16px;
+  }
+
+  &__clear-btn {
+    @extend .button;
+    padding: 0.2rem 0.8rem;
+    background-color: $danger;
+
+    &:hover,
+    &:focus {
+      background-color: $dangerDark;
+    }
+  }
+
   &__input {
     font-family: $font;
     padding: 8px;
@@ -218,6 +258,7 @@ body {
     padding: 0.75rem 1rem;
     justify-content: space-between;
     border-bottom: 1px solid $border;
+    align-items: center;
 
     .post-form__file {
       display: flex;
@@ -241,6 +282,10 @@ body {
 
 // 포스트 레이아웃
 .post {
+  &__image-div {
+    padding: 16px;
+  }
+
   &__header {
     button {
       border: none;
@@ -446,3 +491,4 @@ body {
     }
   }
 }
+
