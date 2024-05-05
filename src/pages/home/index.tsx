@@ -2,7 +2,14 @@ import PostForm from "components/posts/PostForm";
 import PostBox from "components/posts/PostBox";
 import { useCallback, useContext, useEffect, useState } from "react";
 import AuthContext from "context/AuthContext";
-import { collection, doc, onSnapshot, orderBy, query, where } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "firebaseApp";
 
 export interface PostProps {
@@ -88,7 +95,7 @@ export default function HomePage() {
         <div className="home__tabs">
           <div
             className={`home__tab ${
-              activeTab === "all" && "home__tab--active"
+              activeTab === "all" && "home__tab-active"
             }`}
             onClick={() => {
               setActiveTab("all");
@@ -98,7 +105,7 @@ export default function HomePage() {
           </div>
           <div
             className={`home__tab ${
-              activeTab === "following" && "home__tab--active"
+              activeTab === "following" && "home__tab-active"
             }`}
             onClick={() => {
               setActiveTab("following");
@@ -108,7 +115,6 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-
       <PostForm />
       {activeTab === "all" && (
         <div className="post">
