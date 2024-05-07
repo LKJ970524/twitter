@@ -1,3 +1,4 @@
+import { languageState } from "atom";
 import PostBox from "components/posts/PostBox";
 import AuthContext from "context/AuthContext";
 import {
@@ -11,6 +12,7 @@ import { db } from "firebaseApp";
 import { PostProps } from "pages/home";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 
 const PROFILE_DEFAULT_URL = "/logo512.png";
 type TabType = "my" | "like";
@@ -21,6 +23,12 @@ export default function Profile() {
   const navigate = useNavigate();
   const [likePosts, setLikePosts] = useState<PostProps[]>([]);
   const [myPosts, setMyPosts] = useState<PostProps[]>([]);
+  const [language, setLanguage] = useRecoilState(languageState);
+
+  const onClickLanguage = () => {
+    setLanguage(language === 'ko' ? 'en' : 'ko')
+    localStorage.setItem("language", language === "ko" ? "en" : "ko");
+  }
 
   useEffect(() => {
     if (user) {
@@ -67,6 +75,7 @@ export default function Profile() {
             width={150}
             height={150}
           />
+          <div className="profile__flex">
           <button
             type="button"
             className="profile__btn"
@@ -74,6 +83,14 @@ export default function Profile() {
           >
             프로필 수정
           </button>
+          <button
+            type="button"
+            className="profile__btn-language"
+            onClick={onClickLanguage}
+          >
+            {language === 'ko' ? '한국어' : 'English'}
+          </button>
+          </div>
         </div>
         <div className="profile__text">
           <div className="profile__name">{user?.displayName || "사용자님"}</div>

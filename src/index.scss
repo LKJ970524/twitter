@@ -9,7 +9,7 @@ $grayText: #9ca3af;
 $danger: #dc2626;
 $dangerDark: #dc26268e;
 $gray: #6b7280;
-$grayDark: #4c515b;
+$grayDark: #28292b;
 
 $font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
   "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -326,36 +326,36 @@ body {
     gap: 4px;
     align-items: center;
 
-  &--between {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
+    &--between {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+    }
   }
-}
 
-&__follow-btn {
-  @extend .button;
-  background-color: $white;
-  color: $activeBorder;
-
-  &:hover,
-  &:focus {
-    background-color: $activeBorder;
-    color: $white;
-  }
-}
-
-&__following-btn {
-  @extend .button;
-  background-color: $activeBorder;
-  color: $white;
-
-  &:hover,
-  &:focus {
+  &__follow-btn {
+    @extend .button;
     background-color: $white;
     color: $activeBorder;
+
+    &:hover,
+    &:focus {
+      background-color: $activeBorder;
+      color: $white;
+    }
   }
-}
+
+  &__following-btn {
+    @extend .button;
+    background-color: $activeBorder;
+    color: $white;
+
+    &:hover,
+    &:focus {
+      background-color: $white;
+      color: $activeBorder;
+    }
+  }
 
   &__email,
   &__createdAt {
@@ -411,9 +411,9 @@ body {
         }
         &.post__edit {
           background-color: $gray;
-          
+
           a {
-            background-color: transparent
+            background-color: transparent;
           }
 
           &:hover,
@@ -422,10 +422,12 @@ body {
           }
         }
 
-        &.post__likes, &.post__comments {
+        &.post__likes,
+        &.post__comments {
           @extend .post__flex;
 
-          &:hover, &:focus {
+          &:hover,
+          &:focus {
             color: $gray;
           }
         }
@@ -539,6 +541,11 @@ body {
   justify-content: space-between;
   align-items: center;
 
+  &__flex {
+    display: flex;
+    gap: 8px;
+  }
+
   &__image {
     border-radius: 50%;
     width: 100px;
@@ -548,6 +555,16 @@ body {
   &__btn {
     @extend .button;
     background-color: $primaryColor;
+
+    &-language {
+      @extend .button;
+      background-color: $gray;
+
+      &:hover,
+      &:focus {
+        background-color: $grayDark;
+      }
+    }
 
     &:hover,
     &:focus {
