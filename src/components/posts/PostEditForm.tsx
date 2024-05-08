@@ -14,6 +14,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 import PostHeader from "./PostHeader";
+import useTranslation from "hooks/useTranslation";
 
 export default function PostEditForm() {
   const params = useParams();
@@ -25,6 +26,7 @@ export default function PostEditForm() {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const t = useTranslation()
 
   const getPost = useCallback(async () => {
     if (params.id) {
@@ -81,7 +83,7 @@ export default function PostEditForm() {
           imageUrl: imageUrl,
         });
         navigate(`/posts/${post?.id}`);
-        toast.success("게시글을 수정했습니다.");
+        toast.success(t('TO_EDIT_POST'));
       }
       setImageFile(null);
       setIsSubmitting(false);
@@ -113,7 +115,7 @@ export default function PostEditForm() {
       // 만약 같은 태그가 있다면 에러를 띄운다
       // 아니라면 태그를 생성해준다
       if (tags?.includes(e.target.value?.trim())) {
-        toast.error("같은 태그가 있습니다.");
+        toast.error(t('TO_ERROR'));
       } else {
         setTags((prev) => (prev?.length > 0 ? [...prev, hashTag] : [hashTag]));
         setHashTag("");
@@ -158,7 +160,7 @@ export default function PostEditForm() {
             className="post-form__input"
             name="hashtag"
             id="hashtag"
-            placeholder="해시태그 + 스페이스바 입력"
+            placeholder={t('POST_HASHTAG')}
             onChange={onChangeHashTag}
             onKeyUp={handleKeyUp}
             value={hashTag}
@@ -190,14 +192,14 @@ export default function PostEditForm() {
                   type="button"
                   onClick={handleDeleteImage}
                 >
-                  Clear
+                  {t('BUTTON_CLEAR')}
                 </button>
               </div>
             )}
           </div>
           <input
             type="submit"
-            value="수정"
+            value={t('BUTTON_EDIT')}
             className="post-form__submit-btn"
             disabled={isSubmitting}
           />

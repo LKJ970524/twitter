@@ -9,12 +9,14 @@ import { app } from "firebaseApp";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import useTranslation from "hooks/useTranslation";
 
 export default function LoginForm() {
   const [error, setError] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
+  const t = useTranslation();
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
@@ -22,7 +24,7 @@ export default function LoginForm() {
       const auth = getAuth(app);
       await signInWithEmailAndPassword(auth, email, password);
       navigate("/");
-      toast.success("Email로 로그인이 되었습니다.");
+      toast.success(t('TO_LOGIN_SUCCESS_EMAIL'));
     } catch (error: any) {
       toast.error(error?.code);
     }
@@ -38,7 +40,7 @@ export default function LoginForm() {
         /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
       if (!value?.match(validRegex)) {
-        setError("이메일 형식이 올바르지 않습니다.");
+        setError(t('SET_EMAIL'));
       } else {
         setError("");
       }
@@ -48,7 +50,7 @@ export default function LoginForm() {
       setPassword(value);
 
       if (value?.length < 8) {
-        setError("비밀번호는 8자리 이상 입력해주세요");
+        setError(t('SET_PASSWORD_8'));
       } else {
         setError("");
       }
@@ -61,17 +63,17 @@ export default function LoginForm() {
     } = e;
 
     let provider;
-    let loginMethod = '';
+    let loginMethod = "";
     const auth = getAuth(app);
 
     if (name === "google") {
       provider = new GoogleAuthProvider();
-      loginMethod = 'Google'
+      loginMethod = "Google";
     }
 
     if (name === "github") {
       provider = new GithubAuthProvider();
-      loginMethod = 'GitHub'
+      loginMethod = "GitHub";
     }
 
     await signInWithPopup(
@@ -91,9 +93,9 @@ export default function LoginForm() {
 
   return (
     <form className="form form-lg" onSubmit={onSubmit}>
-      <div className="form__title">로그인</div>
+      <div className="form__title">{t("MENU_LOGIN")}</div>
       <div className="form__block">
-        <label htmlFor="email">이메일</label>
+        <label htmlFor="email">{t("FORM_EMAIL")}</label>
         <input
           type="text"
           name="email"
@@ -104,7 +106,7 @@ export default function LoginForm() {
         />
       </div>
       <div className="form__block">
-        <label htmlFor="password">비밀번호</label>
+        <label htmlFor="password">{t("FORM_PASSWORD")}</label>
         <input
           type="password"
           name="password"
@@ -120,9 +122,9 @@ export default function LoginForm() {
         </div>
       )}
       <div className="form__block">
-        계정이 없으신가요?
+        {t("NO_ACCOUNT")}
         <Link to="/users/signup" className="form__link">
-          회원가입하기
+          {t("SIGNUP_LINK")}
         </Link>
       </div>
       <div className="form__block-lg">
@@ -131,7 +133,7 @@ export default function LoginForm() {
           className="form__btn-submit"
           disabled={error?.length > 0}
         >
-          로그인
+          {t("SIGNUP_LINK")}
         </button>
       </div>
       <div className="form__block-lg">
@@ -141,7 +143,7 @@ export default function LoginForm() {
           className="form__btn-google"
           onClick={onClickSocialLogin}
         >
-          Google로 로그인
+          {t("LOGIN_WITH_GOOGLE")}
         </button>
       </div>
       <div className="form__block-lg">
@@ -151,7 +153,7 @@ export default function LoginForm() {
           className="form__btn-github"
           onClick={onClickSocialLogin}
         >
-          GitHub으로 로그인
+          {t("LOGIN_WITH_GITHUB")}
         </button>
       </div>
     </form>

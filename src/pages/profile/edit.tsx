@@ -13,6 +13,7 @@ import { v4 as uuidv4 } from "uuid";
 import { storage } from "firebaseApp";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import useTranslation from "hooks/useTranslation";
 
 const STORAGE_DOWNLOAD_URL_STR = "https://firebasestorage.googleapis.com";
 
@@ -21,6 +22,7 @@ export default function ProfileEdit() {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const t = useTranslation()
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -61,7 +63,7 @@ export default function ProfileEdit() {
           photoURL: newImageUrl || '',
         })
         .then(() => {
-          toast.success('Profile이 업데이트 되었습니다.');
+          toast.success(t('TO_UPDATE_PROFILE'));
           navigate('/profile')
         })
         .catch((error) => {
@@ -109,7 +111,7 @@ export default function ProfileEdit() {
             type="text"
             name="displayName"
             className="post-form__input"
-            placeholder="이름"
+            placeholder={t('NAME_PLACEHOLDER')}
             onChange={onChange}
             value={displayName}
           />
@@ -121,7 +123,7 @@ export default function ProfileEdit() {
                 onClick={handleDeleteImage}
                 className="post-form__clear-btn"
               >
-                삭제
+                {t("BUTTON_DELETE")}
               </button>
             </div>
           )}
@@ -142,7 +144,7 @@ export default function ProfileEdit() {
             />
             <input
               type="submit"
-              value="프로필 수정"
+              value={t("BUTTON_EDIT_PROFILE")}
               className="post-form__submit-btn"
             />
           </div>
