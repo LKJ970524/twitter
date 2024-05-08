@@ -13,6 +13,7 @@ import { db } from "firebaseApp";
 import { PostProps } from "pages/home";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import useTranslation from "hooks/useTranslation";
 
 interface FollowingProps {
   post: PostProps;
@@ -25,6 +26,7 @@ interface UserProps {
 export default function FollowingBox({ post }: FollowingProps) {
   const { user } = useContext(AuthContext);
   const [postFollowers, setPostFollowers] = useState<any>([]);
+  const t = useTranslation();
 
   const onClickFollow = async (e: any) => {
     e.preventDefault();
@@ -62,7 +64,7 @@ export default function FollowingBox({ post }: FollowingProps) {
           uid: post?.uid,
         });
 
-        toast.success("Follow를 했습니다.");
+        toast.success(t('TO_FOLLOW'));
       }
     } catch (e) {
       console.log(e);
@@ -84,7 +86,7 @@ export default function FollowingBox({ post }: FollowingProps) {
           users: arrayRemove({ id: user?.uid }),
         });
 
-        toast.success("Follow를 취소했습니다.");
+        toast.success(t('TO_FOLLOW_CENCELL'));
       }
     } catch (e) {
       console.log(e);
@@ -120,7 +122,7 @@ export default function FollowingBox({ post }: FollowingProps) {
             className="post__following-btn"
             onClick={onClickDeleteFollow}
           >
-            Following
+            {t("BUTTON_FOLLOWING")}
           </button>
         ) : (
           <button
@@ -128,7 +130,7 @@ export default function FollowingBox({ post }: FollowingProps) {
             className="post__follow-btn"
             onClick={onClickFollow}
           >
-            Follower
+            {t("BUTTON_FOLLOW")}
           </button>
         ))}
     </>

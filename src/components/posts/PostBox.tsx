@@ -9,6 +9,7 @@ import {
 } from "firebase/firestore";
 import { ref, deleteObject } from "firebase/storage";
 import { db, storage } from "firebaseApp";
+import useTranslation from "hooks/useTranslation";
 import { PostProps } from "pages/home";
 import { useContext } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
@@ -24,6 +25,7 @@ export default function PostBox({ post }: PostBoxProps) {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const imageRef = ref(storage, post?.imageUrl);
+  const t = useTranslation()
 
   const toggleLike = async () => {
     const postRef = doc(db, "posts", post.id);
@@ -42,7 +44,7 @@ export default function PostBox({ post }: PostBoxProps) {
   };
 
   const handleDelete = async () => {
-    const confirm = window.confirm("해당 게시글을 삭제하시겠습니까?");
+    const confirm = window.confirm(t('DELETE_POST'));
     if (confirm) {
       // storage image 먼저 삭제
 
@@ -53,7 +55,7 @@ export default function PostBox({ post }: PostBoxProps) {
       }
 
       await deleteDoc(doc(db, "posts", post.id));
-      toast.success("게시글을 삭제했습니다.");
+      toast.success(t('TO_DELETE_POST'));
       navigate("/");
     }
   };
@@ -109,10 +111,10 @@ export default function PostBox({ post }: PostBoxProps) {
               className="post__delete"
               onClick={handleDelete}
             >
-              Delete
+              {t('BUTTON_DELETE')}
             </button>
             <button type="button" className="post__edit">
-              <Link to={`/posts/edit/${post?.id}`}>Edit</Link>
+              <Link to={`/posts/edit/${post?.id}`}>{t('BUTTON_EDIT')}</Link>
             </button>
           </>
         )}

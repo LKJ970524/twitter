@@ -9,6 +9,7 @@ import { app } from "firebaseApp";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import useTranslation from "hooks/useTranslation";
 
 export default function SignUpForm() {
   const [error, setError] = useState<string>("");
@@ -16,6 +17,7 @@ export default function SignUpForm() {
   const [password, setPassword] = useState<string>("");
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
   const navigate = useNavigate();
+  const t = useTranslation();
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
@@ -23,7 +25,7 @@ export default function SignUpForm() {
       const auth = getAuth(app);
       await createUserWithEmailAndPassword(auth, email, password);
       navigate("/");
-      toast.success("성공적으로 회원가입이 되었습니다.");
+      toast.success(t('TO_SIGNUP_SUCCESS'));
     } catch (error: any) {
       toast.error(error?.code);
     }
@@ -39,7 +41,7 @@ export default function SignUpForm() {
         /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
       if (!value?.match(validRegex)) {
-        setError("이메일 형식이 올바르지 않습니다.");
+        setError(t('SET_EMAIL'));
       } else {
         setError("");
       }
@@ -49,9 +51,9 @@ export default function SignUpForm() {
       setPassword(value);
 
       if (value?.length < 8) {
-        setError("비밀번호는 8자리 이상 입력해주세요");
+        setError(t('SET_PASSWORD_8'));
       } else if (value !== passwordConfirmation) {
-        setError("비밀번호와 비밀번호 확인 값이 다릅니다.");
+        setError(t('SET_PASSWORD_CONFIRM'));
       } else {
         setError("");
       }
@@ -61,9 +63,9 @@ export default function SignUpForm() {
       setPasswordConfirmation(value);
 
       if (value?.length < 8) {
-        setError("비밀번호는 8자리 이상 입력해주세요");
+        setError(t('SET_PASSWORD_8'));
       } else if (value !== password) {
-        setError("비밀번호와 비밀번호 확인 값이 다릅니다.");
+        setError(t('SET_PASSWORD_CONFIRM'));
       } else {
         setError("");
       }
@@ -76,37 +78,39 @@ export default function SignUpForm() {
     } = e;
 
     let provider;
-    let loginMethod = ''
+    let loginMethod = "";
     const auth = getAuth(app);
 
     if (name === "google") {
       provider = new GoogleAuthProvider();
-      loginMethod = 'Google'
+      loginMethod = "Google";
     }
 
     if (name === "github") {
       provider = new GithubAuthProvider();
-      loginMethod = 'GitHub'
+      loginMethod = "GitHub";
     }
 
     await signInWithPopup(
       auth,
       provider as GithubAuthProvider | GoogleAuthProvider
-    ).then((result) => {
-      console.log(result);
-      toast.success(`${loginMethod}로 로그인 되었습니다.`)
-    }).catch((error) => {
-      console.log(error);
-      const errorMessage = error?.message
-      toast?.error(errorMessage)
-    });
+    )
+      .then((result) => {
+        console.log(result);
+        toast.success(`${loginMethod}로 로그인 되었습니다.`);
+      })
+      .catch((error) => {
+        console.log(error);
+        const errorMessage = error?.message;
+        toast?.error(errorMessage);
+      });
   };
 
   return (
     <form className="form form-lg" onSubmit={onSubmit}>
-      <div className="form__title">회원가입</div>
+      <div className="form__title">{t("MENU_SIGNUP")}</div>
       <div className="form__block">
-        <label htmlFor="email">이메일</label>
+        <label htmlFor="email">{t("FORM_EMAIL")}</label>
         <input
           type="text"
           name="email"
@@ -117,7 +121,7 @@ export default function SignUpForm() {
         />
       </div>
       <div className="form__block">
-        <label htmlFor="password">비밀번호</label>
+        <label htmlFor="password">{t("FORM_PASSWORD")}</label>
         <input
           type="password"
           name="password"
@@ -128,7 +132,9 @@ export default function SignUpForm() {
         />
       </div>
       <div className="form__block">
-        <label htmlFor="password_confirmation">비밀번호 확인</label>
+        <label htmlFor="password_confirmation">
+          {t("FORM_PASSWORD_CHECK")}
+        </label>
         <input
           type="password"
           name="password_confirmation"
@@ -144,9 +150,9 @@ export default function SignUpForm() {
         </div>
       )}
       <div className="form__block">
-        계정이 있으신가요?
+        {t("YES_ACCOUNT")}
         <Link to="/users/login" className="form__link">
-          로그인하기
+          {t("SIGNIN_LINK")}
         </Link>
       </div>
       <div className="form__block-lg">
@@ -155,7 +161,7 @@ export default function SignUpForm() {
           className="form__btn-submit"
           disabled={error?.length > 0}
         >
-          회원가입
+          {t("MENU_SIGNUP")}
         </button>
       </div>
       <div className="form__block-lg">
@@ -165,7 +171,7 @@ export default function SignUpForm() {
           className="form__btn-google"
           onClick={onClickSocialLogin}
         >
-          Google로 회원가입
+          {t("SIGNUP_GOOGLE")}
         </button>
       </div>
       <div className="form__block-lg">
@@ -175,7 +181,7 @@ export default function SignUpForm() {
           className="form__btn-github"
           onClick={onClickSocialLogin}
         >
-          GitHub으로 회원가입
+          {t("SIGNUP_GITHUB")}
         </button>
       </div>
     </form>

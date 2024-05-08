@@ -5,6 +5,8 @@ import { PostProps } from "pages/home";
 import { useContext } from "react";
 import styles from "./Comment.module.scss";
 import { toast } from "react-toastify";
+import useTranslation from "hooks/useTranslation";
+
 
 export interface CommentProps {
   comment: string;
@@ -20,6 +22,7 @@ interface CommentBoxProps {
 
 export default function CommentBox({ data, post }: CommentBoxProps) {
   const { user } = useContext(AuthContext);
+  const t = useTranslation()
   
   const handleDeleteComment = async () => {
     if (post) {
@@ -28,7 +31,7 @@ export default function CommentBox({ data, post }: CommentBoxProps) {
         await updateDoc(postRef, {
           comments: arrayRemove(data),
         });
-        toast.success("댓글을 삭제했습니다");
+        toast.success(t('TO_DELETE_COMMENT'));
       } catch (e) {
         console.log(e);
       }
@@ -53,7 +56,7 @@ export default function CommentBox({ data, post }: CommentBoxProps) {
               className="comment__delete-btn"
               onClick={handleDeleteComment}
             >
-              삭제
+              {t("BUTTON_DELETE")}
             </button>
           )}
         </div>
