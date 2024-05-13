@@ -55,7 +55,7 @@
 
 - Firebase storage를 이용한 이미지 업로드
 - Firebase auth를 이용한 사용자 인증
-- Firestore를 이용한 실시간 데이터 동기화 & 저장 & 관리 (onSnapshot 동기화 개념 사용)
+- FireStore를 이용한 실시간 데이터 동기화 & 저장 & 관리 (onSnapshot 동기화 개념 사용)
 
 ## 사용 스택
 
@@ -81,7 +81,7 @@
 
 1. 홈 타임라인
 
-- firestore 실시간 트위터 보여주기
+- FireStore 실시간 트위터 보여주기
 - React 컴포넌트로 트위터 표시
 
 2. 트윗 작성/편집 페이지
@@ -126,7 +126,30 @@
 ## 라우팅
 
 ```
-라우팅 설계를 끝내는대로 업데이트 하겠습니다.
+export default function Router({ isAuthenticated }: RouterProps) {
+  return (
+    <Routes>
+      {isAuthenticated ? (
+        <> {/* 로그인 되었을 때 */}
+          <Route path="/" element={<HomePage />} /> {/* 메인페이지 */}
+          <Route path="/posts/:id" element={<PostDetail />} /> {/* 상세게시글 */}
+          <Route path="/posts/edit/:id" element={<PostEdit />} /> {/* 게시글 수정 */}
+          <Route path="/profile" element={<Profile />} /> {/* 프로필 */}
+          <Route path="/profile/edit" element={<ProfileEdit />} /> {/* 프로필 수정 */}
+          <Route path="/notifications" element={<Notifications />} /> {/* 알림 페이지 */}
+          <Route path="/search" element={<Search />} /> {/* 검색페이지 */}
+          <Route path="*" element={<Navigate replace to="/" />} /> {/* 잘못된 페이지 이동시 메인페이지로 이동 */}
+        </>
+      ) : (
+        <> {/* 비로그인 상태일때 */}
+          <Route path="/users/login" element={<Login />} /> {/* 로그인 페이지 */}
+          <Route path="/users/signup" element={<SignUp />} /> {/* 회원가입 페이지 */}
+          <Route path="*" element={<Navigate replace to="/users/login" />} /> {/* 잘못된 페이지 이동시 로그인 페이지로 이동 */}
+        </>
+      )}
+    </Routes>
+  );
+}
 ```
 
 ## 폴더 구조
