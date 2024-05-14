@@ -4,7 +4,7 @@
 - (주의) 패스트캠퍼스 강의를 통해 클론코딩 및 학습을 할 예정이니 하나씩 천천히 배우고 올릴 예정이니 많이 늦을수 있습니다.
 - 개인 프로젝트이기 때문에 commit message와 pr, branch의 규칙을 따로 정하지 않았습니다. 참고 부탁드리겠습니다.
 - 배포 : Vercel
-- [배포 주소]() <= 클릭시 배포사이트로 넘어갑니다.(배포가 되지 않았습니다.)
+- [배포 주소](https://twitter-mu-one.vercel.app/) <= 클릭시 배포사이트로 넘어갑니다.(배포가 되지 않았습니다.)
 
 <br />
 
@@ -154,7 +154,7 @@ export default function Router({ isAuthenticated }: RouterProps) {
 
 ## 폴더 구조
 
-<img alt='폴더 구조' src='' width=180px />
+<img alt='폴더 구조' src='https://github.com/LKJ970524/twitter/assets/115642699/f071d21e-6040-4f57-97b6-59c948037089' width=180px />
 
 # 트러블 슈팅
 
