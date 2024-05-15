@@ -4,7 +4,7 @@
 - (주의) 패스트캠퍼스 강의를 통해 클론코딩 및 학습을 할 예정이니 하나씩 천천히 배우고 올릴 예정이니 많이 늦을수 있습니다.
 - 개인 프로젝트이기 때문에 commit message와 pr, branch의 규칙을 따로 정하지 않았습니다. 참고 부탁드리겠습니다.
 - 배포 : Vercel
-- [배포 주소](https://twitter-mu-one.vercel.app/) <= 클릭시 배포사이트로 넘어갑니다.(배포가 되지 않았습니다.)
+- [배포 주소](https://twitter-mu-one.vercel.app/) <= 클릭시 배포사이트로 넘어갑니다.
 
 <br />
 
@@ -177,5 +177,5 @@ export default function Router({ isAuthenticated }: RouterProps) {
   ```
 
 
-firebase 기능을 velog에 기록하고 README에는 링크 적어놓기(팻흐트캠퍼스 각 기능에 대해 설명해놓은것 찾아서 기록하기)
+firebase 기능을 velog에 기록하고 README에는 링크 적어놓기(패스트캠퍼스 각 기능에 대해 설명해놓은것 찾아서 기록하기)
 트러블슈팅 : 이미지 업로드 구현 04~05영상 찾아서보기 (기존 이미지 삭제)
