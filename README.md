@@ -158,6 +158,41 @@ export default function Router({ isAuthenticated }: RouterProps) {
 
 # 트러블 슈팅
 
+이미지 삭제 코드를 넣는 도중 
+<img alt='트러블 슈팅' src='https://github.com/LKJ970524/twitter/assets/115642699/2bcf0654-b01d-49c6-a8ca-17d06ad0fdf9' width=700px />
+해당 error가 발생하게 되었습니다.
+이 error는 이미지 업로드 부분의 삭제에서 처음의 user photoUrl을 user가 업로드한 이미지가 아닌경우에 error가 나타나는 문제인 것으로 확인 되었습니다.
+해당 error의 문제를 파악하고 해결방법을 찾기위해 fireStore를 찾아보던 도중 다운로드 imageUrl은 항상 `https://firebasestorage.googleapis.com`으로 시작을 하는것을 발견했습니다. 따라서 해당 값이 있는 Url은 삭제가 가능하고 해당 값이 없는 Url은 삭제가 안되는 것이었습니다. 그래서 `https://firebasestorage.googleapis.com`이라는 `string`을 포함하는 이미지는 삭제하고 포함이 안된 string은 삭제가 안되는 방향으로 문제를 해결하려 합니다.
+
+#### 기존 코드
+```tsx
+      if (user?.photoURL) {
+        const imageRef = ref(storage, user?.photoURL);
+        if (imageRef) {
+          await deleteObject(imageRef).catch((error) => {
+            console.log(error);
+          })
+        }
+      }
+```
+
+#### 변경 코드
+```tsx
+// photoURL이 있는 경우와 photoURL이 STORAGE_DOWNLOAD_URL_STR을 includes하는 경우에만 imageRef를 가져오고, imageRef의 object를 삭제하도록 변경했습니다.
+const STORAGE_DOWNLOAD_URL_STR = "https://firebasestorage.googleapis.com";
+
+      if (
+        user?.photoURL && user?.photoURL?.includes(STORAGE_DOWNLOAD_URL_STR)
+      ) {
+        const imageRef = ref(storage, user?.photoURL)
+        if (imageRef) {
+          await deleteObject(imageRef).catch((error) => {
+            console.log(error);
+          })
+        }
+      }
+```
+
 # 느낀점
 - recoil로 전역 상태 관리하는 방법을 어렴풋하게 알고있었지만 제대로 사용해보는것은 이번이 처음이었습니다. 처음 배우는것은 확실히 어렵지만 새로운 것을 사용해보고 성취감을 느끼는 것이 정말 뿌듯하고 뜻깊은 프로젝트 기간이었습니다. 이번 프로젝트도 고생했고 다음프로젝트도 화이팅!!
 
@@ -178,4 +213,3 @@ export default function Router({ isAuthenticated }: RouterProps) {
 
 
 firebase 기능을 velog에 기록하고 README에는 링크 적어놓기(패스트캠퍼스 각 기능에 대해 설명해놓은것 찾아서 기록하기)
-트러블슈팅 : 이미지 업로드 구현 04~05영상 찾아서보기 (기존 이미지 삭제)
