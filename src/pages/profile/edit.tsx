@@ -51,11 +51,13 @@ export default function ProfileEdit() {
           })
         }
       }
+
       // image 업로드
       if (imageUrl) {
         const data = await uploadString(storageRef, imageUrl, 'data_url')
         newImageUrl = await getDownloadURL(data?.ref)
       }
+      
       // updateProfile 호출
       if (user) {
         await updateProfile(user, {
