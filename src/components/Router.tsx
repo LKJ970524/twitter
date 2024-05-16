@@ -19,7 +19,7 @@ export default function Router({ isAuthenticated }: RouterProps) {
   return (
     <Routes>
       {isAuthenticated ? (
-        <>
+        <> {/* 로그인이 되어있을 경우 다른 페이지 이동이 가능하다 */}
           <Route path="/" element={<HomePage />} />
           <Route path="/posts" element={<PostList />} />
           <Route path="/posts/:id" element={<PostDetail />} />
@@ -32,7 +32,7 @@ export default function Router({ isAuthenticated }: RouterProps) {
           <Route path="*" element={<Navigate replace to="/" />} />
         </>
       ) : (
-        <>
+        <> {/* 로그인이 되지 않았을경우 회원가입과 로그인페이지만 보이게 설정해놨습니다. */}
           <Route path="/users/login" element={<Login />} />
           <Route path="/users/signup" element={<SignUp />} />
           <Route path="*" element={<Navigate replace to="/users/login" />} />

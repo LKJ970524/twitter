@@ -11,7 +11,7 @@ function App() {
   const auth = getAuth(app);
   const [init, setInit] = useState<boolean>(false);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
-    !!auth?.currentUser
+    !!auth?.currentUser // currentUser가 있으면 true 없으면 false
   );
 
   useEffect(() => {
@@ -30,7 +30,7 @@ function App() {
       <ToastContainer
         position="top-left"
         theme='sk'
-        autoClose={1000}
+        autoClose={1500}
         hideProgressBar
         newestOnTop
       />
