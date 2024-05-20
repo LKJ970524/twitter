@@ -25,7 +25,7 @@ export default function PostForm() {
         }),
         uid: user?.uid,
         email: user?.email,
-        hashTags: tags, //! firestore nosql의 장점중 하나가 database를 따로 설계하지않고 동적으로 필드를 넣었다 뺐다 할수있\는 유연한 장점이 있다.
+        hashTags: tags, //! firestore nosql의 장점중 하나가 database를 따로 설계하지않고 동적으로 필드를 넣었다 뺐다 할수있는 유연한 장점이 있다.
       });
       setTags([]);
       setHashTag("");
