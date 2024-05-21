@@ -3,6 +3,7 @@
 - React, Firebase를 이용한 실시간 트위터 클론코딩 프로젝트 입니다.
 - (주의) 패스트캠퍼스 강의를 통해 클론코딩 및 학습을 할 예정이니 하나씩 천천히 배우고 올릴 예정이니 많이 늦을수 있습니다.
 - 개인 프로젝트이기 때문에 commit message와 pr, branch의 규칙을 따로 정하지 않았습니다. 참고 부탁드리겠습니다.
+- velog에 순차적으로 어떻게 구현하고 코드를 작성했는지 자세하게 적혀있습니다. [Velog](https://velog.io/@dlrbwjd97/series/twitter)
 - 배포 : Vercel
 - [배포 주소](https://twitter-mu-one.vercel.app/) <= 클릭시 배포사이트로 넘어갑니다.
 
@@ -210,6 +211,3 @@ const STORAGE_DOWNLOAD_URL_STR = "https://firebasestorage.googleapis.com";
   npm run start
   yarn start
   ```
-
-
-firebase 기능을 velog에 기록하고 README에는 링크 적어놓기(패스트캠퍼스 각 기능에 대해 설명해놓은것 찾아서 기록하기)
