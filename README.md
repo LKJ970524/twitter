@@ -64,7 +64,7 @@
 - TypeScript
 - Firebase(로그인, 보안, 통신)
 - SCSS
-- Recoil
+- Recoil(Facebook에서 개발한 REACT의 상태관리 라이브러리)
 - Vercel
 
 ## 기타 학습 개념
